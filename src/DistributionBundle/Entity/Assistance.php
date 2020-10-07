@@ -328,7 +328,7 @@ class Assistance implements ExportableInterface
     /**
      * Set type.
      *
-     * @param int $targetType
+     * @param int $targetType one of self::TYPE_*
      *
      * @return self
      */

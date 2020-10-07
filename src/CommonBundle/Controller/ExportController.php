@@ -2,6 +2,7 @@
 
 namespace CommonBundle\Controller;
 
+use DistributionBundle\DBAL\AssistanceTypeEnum;
 use DistributionBundle\Entity\Assistance;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -222,5 +223,119 @@ class ExportController extends Controller
         ]);
 
         return $this->container->get('pdf_service')->printPdf($html, 'portrait', 'distribution');
+    }
+
+    /**
+     * @Rest\Get("/export/distribution/ukr-post")
+     *
+     * @SWG\Tag(name="Export")
+     *
+     * @SWG\Parameter(name="id",
+     *     type="string",
+     *     in="query",
+     *     required=true,
+     *     description="ID of distribution to export"
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="streamed file"
+     * )
+     *
+     * @SWG\Response(
+     *     response=404,
+     *     description="invalid query parameters"
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws
+     */
+    public function exportUkrPostDistribution(Request $request): Response
+    {
+        if (!$request->query->has('id')) {
+            throw $this->createNotFoundException("Missing distribution ID.");
+        }
+
+        $distribution = $this->getDoctrine()->getRepository(Assistance::class)->find($request->query->get('id'));
+        if (null == $distribution || AssistanceTypeEnum::DISTRIBUTION !== $distribution->getAssistanceType()) {
+            throw $this->createNotFoundException("Invalid distribution requested.");
+        }
+
+        if ('UKR' !== $distribution->getProject()->getIso3()) {
+            throw $this->createNotFoundException("Export allows only UKR distriburions.");
+        }
+
+        $filename = $this->get('distribution.export.ukr_post')->export($distribution);
+
+        $response = new BinaryFileResponse(getcwd().'/'.$filename);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
+        $response->deleteFileAfterSend(true);
+
+        $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
+        if ($mimeTypeGuesser->isSupported()) {
+            $response->headers->set('Content-Type', $mimeTypeGuesser->guess(getcwd().'/'.$filename));
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Rest\Get("/export/distribution/ukr-bank")
+     *
+     * @SWG\Tag(name="Export")
+     *
+     * @SWG\Parameter(name="id",
+     *     type="string",
+     *     in="query",
+     *     required=true,
+     *     description="ID of distribution to export"
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="streamed file"
+     * )
+     *
+     * @SWG\Response(
+     *     response=404,
+     *     description="invalid query parameters"
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws
+     */
+    public function exportUkrBankDistribution(Request $request): Response
+    {
+        if (!$request->query->has('id')) {
+            throw $this->createNotFoundException("Missing distribution ID.");
+        }
+
+        $distribution = $this->getDoctrine()->getRepository(Assistance::class)->find($request->query->get('id'));
+        if (null == $distribution || AssistanceTypeEnum::DISTRIBUTION !== $distribution->getAssistanceType()) {
+            throw $this->createNotFoundException("Invalid distribution requested.");
+        }
+
+        if ('UKR' !== $distribution->getProject()->getIso3()) {
+            throw $this->createNotFoundException("Export allows only UKR distriburions.");
+        }
+
+        $filename = $this->get('distribution.export.ukr_bank')->export($distribution);
+
+        $response = new BinaryFileResponse(getcwd().'/'.$filename);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
+        $response->deleteFileAfterSend(true);
+
+        $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
+        if ($mimeTypeGuesser->isSupported()) {
+            $response->headers->set('Content-Type', $mimeTypeGuesser->guess(getcwd().'/'.$filename));
+        }
+
+        return $response;
     }
 }

@@ -17,3 +17,8 @@ services:
     transaction.khm_financial_provider:
         class: TransactionBundle\Utils\Provider\KHMFinancialProvider
         parent: transaction.default_financial_provider
+
+    transaction.manual_bank_transfer:
+        class: TransactionBundle\Service\ManualBankTransfer
+        arguments: [ '@doctrine.orm.entity_manager' ]
+        public: true

@@ -171,9 +171,9 @@ class DistributionService
 
         // TODO : make the front send 0 or 1 instead of Individual (Beneficiary comes from the import)
         if ($distributionArray['target_type'] === "Beneficiary" || $distributionArray['target_type'] === "Individual" || $distributionArray['target_type'] === "1") {
-            $distribution->setTargetType(1);
+            $distribution->setTargetType(Assistance::TYPE_BENEFICIARY);
         } else {
-            $distribution->setTargetType(0);
+            $distribution->setTargetType(Assistance::TYPE_HOUSEHOLD);
         }
 
         $location = $this->locationService->getLocation($countryISO3, $location);

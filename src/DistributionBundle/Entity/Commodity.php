@@ -24,7 +24,7 @@ class Commodity
 
     /**
      * @var ModalityType
-     * @SymfonyGroups({"FullDistribution", "SmallDistribution"})
+     * @SymfonyGroups({"FullDistribution", "SmallDistribution", "DistributionOverview"})
      * @ORM\ManyToOne(targetEntity="DistributionBundle\Entity\ModalityType")
      */
     private $modalityType;

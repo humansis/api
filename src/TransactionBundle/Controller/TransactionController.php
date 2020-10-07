@@ -5,6 +5,7 @@ namespace TransactionBundle\Controller;
 use BeneficiaryBundle\Entity\Beneficiary;
 use DistributionBundle\Entity\Assistance;
 use BeneficiaryBundle\Entity\Household;
+use DistributionBundle\Entity\DistributionBeneficiary;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TransactionBundle\Entity\Transaction;
+use TransactionBundle\Service\Exception\TransactionException;
 
 /**
  * Class TransactionController
@@ -310,5 +312,93 @@ class TransactionController extends Controller
         $result = $this->getDoctrine()->getRepository(Transaction::class)->getHouseholdPurchases($household);
 
         return $this->json($result);
+    }
+
+    /**
+     * Set transaction as distributed.
+     *
+     * @Rest\Post("/transactions/distributed")
+     * @Security("is_granted('ROLE_PROJECT_MANAGEMENT_ASSIGN')")
+     *
+     * @SWG\Tag(name="Transaction")
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="OK"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Some of distribution beneficiaries does not exists"
+     * )
+     *
+     * @SWG\Response(
+     *     response=409,
+     *     description="Some transations can not be distributed"
+     * )
+     *
+     * @param  Request $request
+     *
+     * @return Response
+     */
+    public function setTransactionDistributedAction(Request $request)
+    {
+        $ids = $request->request->get('ids');
+
+        $distributionBeneficiaries = $this->getDoctrine()->getRepository(DistributionBeneficiary::class)->findBy(['id' => $ids]);
+        if (count($ids) !== count($distributionBeneficiaries)) {
+            throw $this->createNotFoundException('Some DistributionBeneficiaries does not exists');
+        }
+
+        try {
+            $this->get('transaction.manual_bank_transfer')->setAsDistributed($distributionBeneficiaries);
+        } catch (TransactionException $ex) {
+            return new Response($ex->getMessage(), Response::HTTP_CONFLICT);
+        }
+
+        return $this->json([]);
+    }
+
+    /**
+     * Set transaction as picked up.
+     *
+     * @Rest\Post("/transactions/picked-up")
+     * @Security("is_granted('ROLE_PROJECT_MANAGEMENT_ASSIGN')")
+     *
+     * @SWG\Tag(name="Transaction")
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="OK"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Some of distribution beneficiaries does not exists"
+     * )
+     *
+     * @SWG\Response(
+     *     response=409,
+     *     description="Some transations can not be picked up"
+     * )
+     *
+     * @param  Request $request
+     *
+     * @return Response
+     */
+    public function setTransactionPickedUpAction(Request $request)
+    {
+        $ids = $request->request->get('ids');
+
+        $distributionBeneficiaries = $this->getDoctrine()->getRepository(DistributionBeneficiary::class)->findBy(['id' => $ids]);
+        if (count($ids) !== count($distributionBeneficiaries)) {
+            throw $this->createNotFoundException('Some DistributionBeneficiaries does not exists');
+        }
+
+        try {
+            $this->get('transaction.manual_bank_transfer')->setAsPickedUp($distributionBeneficiaries);
+        } catch (TransactionException $ex) {
+            return new Response($ex->getMessage(), Response::HTTP_CONFLICT);
+        }
+
+        return $this->json([]);
     }
 }

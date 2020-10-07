@@ -15,6 +15,7 @@ class ModalityFixtures extends Fixture
                 'Mobile Money',
                 'Cash',
                 'Smartcard',
+                'Manual Bank Transfer',
                 // 'Electronic Bank Transfer',
                 // 'Digital Wallet',
             ],

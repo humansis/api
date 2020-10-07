@@ -68,5 +68,34 @@ class TransactionController extends BMSServiceTestCase
         }
     }
 
+    public function testSetTransactionDistributed()
+    {
+        $user = $this->getTestUser(self::USER_TESTER);
+        $token = $this->getUserToken($user);
+        $this->tokenStorage->setToken($token);
+
+        $this->request('POST', '/api/wsse/transactions/distributed', [
+            'ids' => [],
+        ]);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), "Request failed: ".$this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @depends testSetTransactionDistributed
+     */
+    public function testSetTransactionPickedUp()
+    {
+        $user = $this->getTestUser(self::USER_TESTER);
+        $token = $this->getUserToken($user);
+        $this->tokenStorage->setToken($token);
+
+        $this->request('POST', '/api/wsse/transactions/picked-up', [
+            'ids' => [],
+        ]);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), "Request failed: ".$this->client->getResponse()->getContent());
+    }
+
     //Transactions tests are in the DistributionBundle because we needed a distribution to test the differents routes
 }
