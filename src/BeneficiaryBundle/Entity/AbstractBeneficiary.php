@@ -49,14 +49,6 @@ abstract class AbstractBeneficiary
     private $distributionBeneficiaries;
 
     /**
-     * @ORM\OneToMany(targetEntity="DistributionBundle\Entity\DistributionBeneficiary", mappedBy="beneficiary", cascade={"remove"})
-     * @SymfonyGroups({"FullReceivers", "FullBeneficiary"})
-     *
-     * @var DistributionBeneficiary $distributionBeneficiary
-     */
-    private $distributionBeneficiary;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(type="boolean", options={"default" : 0})
@@ -127,14 +119,6 @@ abstract class AbstractBeneficiary
         $this->projects = $collection;
 
         return $this;
-    }
-
-    /**
-     * @return DistributionBeneficiary
-     */
-    public function getDistributionBeneficiary(): DistributionBeneficiary
-    {
-        return $this->distributionBeneficiaries->getIterator()->current();
     }
 
     /**

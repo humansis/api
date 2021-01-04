@@ -129,7 +129,7 @@ class BeneficiaryRepository extends AbstractCriteriaRepository
     public function getAllofDistribution(Assistance $assistance)
     {
         $qb = $this->createQueryBuilder('b');
-        $q = $qb->leftJoin('b.distributionBeneficiary', 'db')
+        $q = $qb->leftJoin('b.distributionBeneficiaries', 'db')
             ->where('db.assistance = :assistance')
             ->setParameter('assistance', $assistance);
 
@@ -139,7 +139,7 @@ class BeneficiaryRepository extends AbstractCriteriaRepository
     public function getNotRemovedofDistribution(Assistance $assistance)
     {
         $qb = $this->createQueryBuilder('b');
-        $q = $qb->leftJoin('b.distributionBeneficiary', 'db')
+        $q = $qb->leftJoin('b.distributionBeneficiaries', 'db')
             ->where('db.assistance = :assistance')
             ->andWhere('db.removed = 0')
             ->setParameter('assistance', $assistance);
@@ -404,7 +404,7 @@ class BeneficiaryRepository extends AbstractCriteriaRepository
         $this->beneficiariesInCountry($qb, $iso3);
 
         $qb->select('COUNT(DISTINCT b)')
-            ->leftJoin('b.distributionBeneficiary', 'db')
+            ->leftJoin('b.distributionBeneficiaries', 'db')
             ->leftJoin('db.booklets', 'bk')
             ->leftJoin('db.transactions', 't')
             ->leftJoin('db.generalReliefs', 'gri')
