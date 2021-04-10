@@ -3889,7 +3889,47 @@
       <trans-unit id="928" resname="en">
         <source>en</source>
         <target>English</target>
-    </trans-unit>
+      </trans-unit>
+      <trans-unit id="929" resname="settlementType">
+        <source>settlementType</source>
+        <target>Settlement type</target>
+      </trans-unit>
+      <trans-unit id="930" resname="settlementTypeNonDisplaceOwnerOccupied">
+        <source>settlementTypeNonDisplaceOwnerOccupied</source>
+        <target>Non displaced - Owner occupied (Residence)</target>
+      </trans-unit>
+      <trans-unit id="931" resname="settlementTypeNonDisplaceRentalAccommodation">
+        <source>settlementTypeNonDisplaceRentalAccommodation</source>
+        <target>Non displaced - Rental accommodation (Residence)</target>
+      </trans-unit>
+      <trans-unit id="932" resname="settlementTypeNonDisplaceInformallyOccupied">
+        <source>settlementTypeNonDisplaceInformallyOccupied</source>
+        <target>Non displaced - Informally occupied (Residence)</target>
+      </trans-unit>
+      <trans-unit id="933" resname="settlementTypeDisplacedDispersedRental">
+        <source>settlementTypeDisplacedDispersedRental</source>
+        <target>Displaced - Dispersed - Rental (Residence)</target>
+      </trans-unit>
+      <trans-unit id="934" resname="settlementTypeDisplacedDispersedHosted">
+        <source>settlementTypeDisplacedDispersedHosted</source>
+        <target>Displaced - Dispersed - Hosted (Residence)</target>
+      </trans-unit>
+      <trans-unit id="935" resname="settlementTypeDisplacedDispersedSpontaneous">
+        <source>settlementTypeDisplacedDispersedSpontaneous</source>
+        <target>Displaced - Dispersed - Spontaneous (Informal Settlement)</target>
+      </trans-unit>
+      <trans-unit id="936" resname="settlementTypeDisplacedCommunalCollectiveCenter">
+        <source>settlementTypeDisplacedCommunalCollectiveCenter</source>
+        <target>Displaced - Communal - Collective Center (Informal Settlement)</target>
+      </trans-unit>
+      <trans-unit id="937" resname="settlementTypeDisplacedCommunalPlannedCamp">
+        <source>settlementTypeDisplacedCommunalPlannedCamp</source>
+        <target>Displaced - Communal - Planned Camp (Camp)</target>
+      </trans-unit>
+      <trans-unit id="938" resname="settlementTypeDisplacedCommunalUnplannedInformalSettlement">
+        <source>settlementTypeDisplacedCommunalUnplannedInformalSettlement</source>
+        <target>Displaced - Communal - Unplanned Informal Settlement (Informal Settlement)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

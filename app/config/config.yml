@@ -111,6 +111,7 @@ doctrine:
             enum_livelihood: ProjectBundle\DBAL\LivelihoodEnum
             enum_sector: ProjectBundle\DBAL\SectorEnum
             enum_sub_sector: ProjectBundle\DBAL\SubSectorEnum
+            enum_settlement_type: NewApiBundle\Enum\SettlementTypeEnum
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

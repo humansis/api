@@ -168,6 +168,11 @@ class HouseholdUpdateInputType implements InputTypeInterface
      */
     private $countrySpecificAnswers = [];
 
+    /**
+     * @Assert\Choice(callback={"NewApiBundle\Enum\SettlementTypeEnum", "all"}, strict=true)
+     */
+    private $settlementType;
+
     final public static function assets()
     {
         return array_keys(Household::ASSETS);
@@ -565,5 +570,21 @@ class HouseholdUpdateInputType implements InputTypeInterface
     public function removeCountrySpecificAnswer(CountrySpecificsAnswerInputType $inputType)
     {
         // method must be declared to fullfill normalizer requirements
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSettlementType()
+    {
+        return $this->settlementType;
+    }
+
+    /**
+     * @param string|null $settlementType
+     */
+    public function setSettlementType($settlementType)
+    {
+        $this->settlementType = $settlementType;
     }
 }

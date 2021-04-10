@@ -207,6 +207,13 @@ class Household extends AbstractBeneficiary
     private $enumeratorName = null;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="settlement_type", type="enum_settlement_type", nullable=true)
+     */
+    private $settlementType;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -753,6 +760,26 @@ class Household extends AbstractBeneficiary
     public function setEnumeratorName(?string $enumeratorName): Household
     {
         $this->enumeratorName = $enumeratorName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSettlementType(): ?string
+    {
+        return $this->settlementType;
+    }
+
+    /**
+     * @param string|null $settlementType
+     *
+     * @return Household
+     */
+    public function setSettlementType(?string $settlementType): self
+    {
+        $this->settlementType = $settlementType;
 
         return $this;
     }

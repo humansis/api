@@ -196,4 +196,9 @@ class HouseholdMapper implements MapperInterface
 
         return null;
     }
+
+    public function getSettlementType(): ?string
+    {
+        return $this->object->getSettlementType();
+    }
 }

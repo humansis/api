@@ -10,6 +10,7 @@ use BeneficiaryBundle\Enum\ResidencyStatus;
 use CommonBundle\Entity\Location;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use NewApiBundle\Enum\SettlementTypeEnum;
 use ProjectBundle\Entity\Project;
 use ProjectBundle\Enum\Livelihood;
 use Tests\BMSServiceTestCase;
@@ -101,6 +102,7 @@ class HouseholdControllerTest extends BMSServiceTestCase
                     'locationId' => $location->getId(),
                 ],
             ],
+            'settlementType' => SettlementTypeEnum::DISPLACED_COMMUNAL_UNPLANNED_INFORMAL_SETTLEMENT,
         ]);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
@@ -133,6 +135,7 @@ class HouseholdControllerTest extends BMSServiceTestCase
         $this->assertArrayHasKey('campAddressId', $result);
         $this->assertArrayHasKey('residenceAddressId', $result);
         $this->assertArrayHasKey('temporarySettlementAddressId', $result);
+        $this->assertArrayHasKey('settlementType', $result);
 
         return $result['id'];
     }
@@ -209,6 +212,7 @@ class HouseholdControllerTest extends BMSServiceTestCase
                 'tentNumber' => 'string',
                 'campId' => $camp->getId(),
             ],
+            'settlementType' => SettlementTypeEnum::DISPLACED_COMMUNAL_UNPLANNED_INFORMAL_SETTLEMENT,
         ]);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
@@ -242,6 +246,7 @@ class HouseholdControllerTest extends BMSServiceTestCase
         $this->assertArrayHasKey('campAddressId', $result);
         $this->assertArrayHasKey('residenceAddressId', $result);
         $this->assertArrayHasKey('temporarySettlementAddressId', $result);
+        $this->assertArrayHasKey('settlementType', $result);
 
         return $id;
     }
@@ -289,6 +294,7 @@ class HouseholdControllerTest extends BMSServiceTestCase
         $this->assertArrayHasKey('campAddressId', $result);
         $this->assertArrayHasKey('residenceAddressId', $result);
         $this->assertArrayHasKey('temporarySettlementAddressId', $result);
+        $this->assertArrayHasKey('settlementType', $result);
 
         return $id;
     }
