@@ -3890,44 +3890,44 @@
         <source>en</source>
         <target>English</target>
       </trans-unit>
-      <trans-unit id="929" resname="settlementType">
-        <source>settlementType</source>
+      <trans-unit id="929">
+        <source>Settlement type</source>
         <target>Settlement type</target>
       </trans-unit>
-      <trans-unit id="930" resname="settlementTypeNonDisplaceOwnerOccupied">
-        <source>settlementTypeNonDisplaceOwnerOccupied</source>
+      <trans-unit id="930">
+        <source>Non displaced - Owner occupied (Residence)</source>
         <target>Non displaced - Owner occupied (Residence)</target>
       </trans-unit>
-      <trans-unit id="931" resname="settlementTypeNonDisplaceRentalAccommodation">
-        <source>settlementTypeNonDisplaceRentalAccommodation</source>
+      <trans-unit id="931">
+        <source>Non displaced - Rental accommodation (Residence)</source>
         <target>Non displaced - Rental accommodation (Residence)</target>
       </trans-unit>
-      <trans-unit id="932" resname="settlementTypeNonDisplaceInformallyOccupied">
-        <source>settlementTypeNonDisplaceInformallyOccupied</source>
+      <trans-unit id="932">
+        <source>Non displaced - Informally occupied (Residence)</source>
         <target>Non displaced - Informally occupied (Residence)</target>
       </trans-unit>
-      <trans-unit id="933" resname="settlementTypeDisplacedDispersedRental">
-        <source>settlementTypeDisplacedDispersedRental</source>
+      <trans-unit id="933">
+        <source>Displaced - Dispersed - Rental (Residence)</source>
         <target>Displaced - Dispersed - Rental (Residence)</target>
       </trans-unit>
-      <trans-unit id="934" resname="settlementTypeDisplacedDispersedHosted">
-        <source>settlementTypeDisplacedDispersedHosted</source>
+      <trans-unit id="934">
+        <source>Displaced - Dispersed - Hosted (Residence)</source>
         <target>Displaced - Dispersed - Hosted (Residence)</target>
       </trans-unit>
-      <trans-unit id="935" resname="settlementTypeDisplacedDispersedSpontaneous">
-        <source>settlementTypeDisplacedDispersedSpontaneous</source>
+      <trans-unit id="935">
+        <source>Displaced - Dispersed - Spontaneous (Informal Settlement)</source>
         <target>Displaced - Dispersed - Spontaneous (Informal Settlement)</target>
       </trans-unit>
-      <trans-unit id="936" resname="settlementTypeDisplacedCommunalCollectiveCenter">
-        <source>settlementTypeDisplacedCommunalCollectiveCenter</source>
+      <trans-unit id="936">
+        <source>Displaced - Communal - Collective Center (Informal Settlement)</source>
         <target>Displaced - Communal - Collective Center (Informal Settlement)</target>
       </trans-unit>
-      <trans-unit id="937" resname="settlementTypeDisplacedCommunalPlannedCamp">
-        <source>settlementTypeDisplacedCommunalPlannedCamp</source>
+      <trans-unit id="937">
+        <source>Displaced - Communal - Planned Camp (Camp)</source>
         <target>Displaced - Communal - Planned Camp (Camp)</target>
       </trans-unit>
-      <trans-unit id="938" resname="settlementTypeDisplacedCommunalUnplannedInformalSettlement">
-        <source>settlementTypeDisplacedCommunalUnplannedInformalSettlement</source>
+      <trans-unit id="938">
+        <source>Displaced - Communal - Unplanned Informal Settlement (Informal Settlement)</source>
         <target>Displaced - Communal - Unplanned Informal Settlement (Informal Settlement)</target>
       </trans-unit>
     </body>
