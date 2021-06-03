@@ -24,12 +24,12 @@ class SelectionCriteria
     private $id;
 
     /**
-     * @var Assistance
+     * @var AssistanceSelection
      *
-     * @ORM\ManyToOne(targetEntity="DistributionBundle\Entity\Assistance", inversedBy="selectionCriteria")
-     * @ORM\JoinColumn(name="assistance_id")
+     * @ORM\ManyToOne(targetEntity="DistributionBundle\Entity\AssistanceSelection", inversedBy="selectionCriteria")
+     * @ORM\JoinColumn(name="assistance_selection_id", nullable=false)
      */
-    private $assistance;
+    private $assistanceSelection;
 
     /**
      * @var string
@@ -266,30 +266,6 @@ class SelectionCriteria
     }
 
     /**
-     * Set assistance.
-     *
-     * @param \DistributionBundle\Entity\Assistance|null $assistance
-     *
-     * @return SelectionCriteria
-     */
-    public function setAssistance(\DistributionBundle\Entity\Assistance $assistance = null)
-    {
-        $this->assistance = $assistance;
-
-        return $this;
-    }
-
-    /**
-     * Get assistance.
-     *
-     * @return \DistributionBundle\Entity\Assistance|null
-     */
-    public function getAssistance()
-    {
-        return $this->assistance;
-    }
-
-    /**
      * @param int $groupNumber
      *
      * @return SelectionCriteria
@@ -307,5 +283,23 @@ class SelectionCriteria
     public function getGroupNumber(): int
     {
         return $this->groupNumber;
+    }
+
+    /**
+     * @return AssistanceSelection
+     */
+    public function getAssistanceSelection(): AssistanceSelection
+    {
+        return $this->assistanceSelection;
+    }
+
+    /**
+     * @param AssistanceSelection $assistanceSelection
+     */
+    public function setAssistanceSelection(AssistanceSelection $assistanceSelection): self
+    {
+        $this->assistanceSelection = $assistanceSelection;
+
+        return $this;
     }
 }

@@ -167,8 +167,10 @@ class CriteriaAssistanceService
      */
     public function save(Assistance $assistance, SelectionCriteria $selectionCriteria, bool $flush)
     {
-        $selectionCriteria->setAssistance($assistance);
+        $assistance->getAssistanceSelection()->getSelectionCriteria()->add($selectionCriteria);
+        $selectionCriteria->setAssistanceSelection($assistance->getAssistanceSelection());
         $this->em->persist($selectionCriteria);
+        $this->em->persist($assistance);
         if ($flush) {
             $this->em->flush();
         }
