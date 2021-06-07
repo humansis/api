@@ -136,4 +136,9 @@ class AssistanceMapper implements MapperInterface
     {
         return (bool) $this->object->getCompleted();
     }
+
+    public function getSelectionId(): int
+    {
+        return $this->object->getAssistanceSelection()->getId();
+    }
 }
