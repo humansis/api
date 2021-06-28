@@ -126,8 +126,12 @@ class AssistanceController extends AbstractController
      */
     public function update(Request $request, Assistance $assistance): JsonResponse
     {
-        if ($request->request->get('validated', false)) {
-            $this->get('distribution.assistance_service')->validateDistribution($assistance);
+        if ($request->request->has('validated')) {
+            if ($request->request->get('validated', true)) {
+                $this->get('distribution.assistance_service')->validateDistribution($assistance);
+            } else {
+                $this->get('distribution.assistance_service')->unvalidateDistribution($assistance);
+            }
         }
 
         if ($request->request->get('completed', false)) {

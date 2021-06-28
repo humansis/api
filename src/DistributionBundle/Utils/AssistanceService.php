@@ -21,6 +21,7 @@ use DistributionBundle\Utils\Retriever\AbstractRetriever;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use NewApiBundle\Component\SelectionCriteria\FieldDbTransformer;
+use NewApiBundle\Entity\AssistanceStatistics;
 use NewApiBundle\InputType\AssistanceCreateInputType;
 use NewApiBundle\InputType\GeneralReliefItemUpdateInputType;
 use NewApiBundle\InputType\GeneralReliefPatchInputType;
@@ -131,6 +132,30 @@ class AssistanceService
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * @param Assistance $assistance
+     */
+    public function unvalidateDistribution(Assistance $assistance): void
+    {
+        if ($this->isDistributionStarted($assistance)) {
+            throw new \InvalidArgumentException('Unable to unvalidate the assistance. Assistance is already started.');
+        }
+
+        $assistance
+            ->setValidated(false)
+            ->setUpdatedOn(null);
+
+        foreach ($assistance->getDistributionBeneficiaries() as $distributionBeneficiary) {
+            /** @var AssistanceBeneficiary $distributionBeneficiary */
+            foreach ($distributionBeneficiary->getGeneralReliefs() as $gri) {
+                $this->em->remove($gri);
+            }
+        }
+
+        $this->em->persist($assistance);
+        $this->em->flush();
     }
 
     /**
@@ -1064,5 +1089,20 @@ class AssistanceService
     {
         $beneficiaries = $this->em->getRepository(Beneficiary::class)->getNotRemovedofDistribution($assistance);
         return $this->container->get('export_csv_service')->export($beneficiaries, 'beneficiaryInDistribution', $type);
+    }
+
+    /**
+     * Check if possible to revert validate state of assistance
+     *
+     * @param Assistance $assistance
+     *
+     * @return bool
+     */
+    public function isDistributionStarted(Assistance $assistance): bool
+    {
+        /** @var AssistanceStatistics $statistics */
+        $statistics = $this->em->getRepository(AssistanceStatistics::class)->findByAssistance($assistance);
+
+        return empty($statistics->getAmountDistributed());
     }
 }

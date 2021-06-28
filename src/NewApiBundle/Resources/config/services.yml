@@ -75,6 +75,11 @@ services:
         resource: '../../Mapper'
         tags: [ 'app.mapper' ]
 
+    NewApiBundle\Mapper\AssistanceMapper:
+        arguments:
+            - '@distribution.assistance_service'
+        tags: [ 'app.mapper' ]
+
     NewApiBundle\Mapper\SelectionCriterionFieldMapper:
         arguments: [ '@translator' ]
         tags: [ 'app.mapper' ]

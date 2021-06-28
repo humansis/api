@@ -4,12 +4,21 @@ declare(strict_types=1);
 namespace NewApiBundle\Mapper;
 
 use DistributionBundle\Entity\Assistance;
+use DistributionBundle\Utils\AssistanceService;
 use NewApiBundle\Serializer\MapperInterface;
 
 class AssistanceMapper implements MapperInterface
 {
     /** @var Assistance */
     private $object;
+
+    /** @var AssistanceService */
+    private $service;
+
+    public function __construct(AssistanceService $service)
+    {
+        $this->service = $service;
+    }
 
     /**
      * {@inheritdoc}
@@ -135,5 +144,10 @@ class AssistanceMapper implements MapperInterface
     public function getCompleted(): bool
     {
         return (bool) $this->object->getCompleted();
+    }
+
+    public function getDistributionStarted(): bool
+    {
+        return $this->service->isDistributionStarted($this->object);
     }
 }
